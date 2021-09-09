@@ -49,6 +49,15 @@
                   <input type="password" class="form-control" name="password" id="password" required>
                 </div>
               </div>
+
+              <div class="row" style="padding-top: 1vw;">
+                <div class="col-md-2">
+                  <label>Confirm Password</label>
+                </div>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="confirmpass" name="confirmpass" required>
+                </div>
+              </div>
               <div class="row" style="padding-top: 1vw;">
                 <div class="col-sm-5">
                     <input type="submit" class="btn btn-dark form-control" style="margin-left: 10vw;" value="Register">
@@ -64,36 +73,46 @@
 </div></div></div></div></div></div>
     <script>
         function validate() {
-            var pass=document.getElementById("password").value
-            var name=document.getElementById("name").value
-            var uname=document.getElementById("username").value
-            var regx=/^[6-9]\d{9}$/
-            var contact=document.getElementById("contact").value
-            if (name.length<4){
-              document.getElementById("msg").innerHTML="Name must contain atleast 4 characters"
-              return false
-            }
-            if (!regx.test(contact)){
+      var pass=document.getElementById("password").value
+      var cpass=document.getElementById("confirmpass").value
+      var name=document.getElementById("name").value
+      var uname=document.getElementById("username").value
+      var regx=/^[6-9]\d{9}$/
+      var contact=document.getElementById("contact").value
+      if (name.length<4){
+          document.getElementById("msg").innerHTML="Name must contain atleast 4 characters"
+          return false
+      }
+      if (!regx.test(contact)){
               document.getElementById("msg").innerHTML="Please enter valid number"
               return false
             }
-            if (uname.length<4){
-              document.getElementById("msg").innerHTML="Username must contain atleast 4 characters"
-              return false
-            }
-            if (uname=="admin"){
+      if (uname.length<4){
+          document.getElementById("msg").innerHTML="Username must contain atleast 4 characters"
+          return false
+      }
+      if (uname=="admin"){
             document.getElementById("msg").innerHTML="Username can't be admin"
-            return false
-            }
-            if(pass.length<8){
-              document.getElementById("msg").innerHTML="Password must contain 8 characters"
-              return false
-            }
-            else if(pass.length>15){
-              document.getElementById("msg").innerHTML="Password must not exceed 15 characters"
-              return false
-            
-            }
-          }
+          return false
+        }
+      if(pass.length<8){
+        document.getElementById("msg").innerHTML="Password must contain 8 characters"
+        return false
+      }
+      else if(pass.length>15){
+        document.getElementById("msg").innerHTML="Password must not exceed 15 characters"
+        return false
+      
+      }
+      if (pass==cpass){
+        return true
+      }
+      else{
+        document.getElementById("confirmpass").value=""
+        document.getElementById("msg").innerHTML="Re enter the password"
+        document.getElementById("confirmpass").innerHTML=""
+        return false
+      }
+    }
     </script>
 {% endblock %}

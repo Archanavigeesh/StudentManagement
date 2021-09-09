@@ -39,23 +39,6 @@ def fnadminstdreg(request):
     except Exception as e:
         return redirect('login')
     return redirect('login')
-def fnstudentregistration(request):
-            if request.method=="POST":
-                name=request.POST.get('name')
-                contact=request.POST.get('contact')
-                email=request.POST.get('email')
-                username=request.POST.get('username')
-                password=request.POST.get('password')
-                usertype="User"
-                loginobj=Login(username=username,password=password,usertype=usertype)
-                loginobj.save()
-                stdobj=Student(user=loginobj,name=name,contact=contact,email=email)
-                stdobj.save()
-                state="Active"
-                stateobj=State(stdlogin=loginobj,std=stdobj,state=state)
-                stateobj.save()
-                return redirect('login')
-            return render(request,'stdreg.html')
 def fnadminhome(request):
     try:
         if request.session['id']:
