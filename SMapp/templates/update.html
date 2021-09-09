@@ -1,0 +1,148 @@
+{% extends 'stdindex.html' %}
+{% block content %}
+<div style="display: block; margin-left: 30vw;">
+    <form method="POST" action="updateprofile" onsubmit="return validate()">
+        {% csrf_token %}
+        <div class="row  h-100">
+            <div class="col-xl-12 ">
+              <div class="card" style="border-radius: 1rem; width: 50%; margin-top: 2vw;">
+                <div class="row">
+                  <div class="col-md col-lg  align-items-center">
+                    <div class="card-body  text-black">
+
+                        {%if state.state == 'Active'%}
+              <div class="row" style="padding-top: 1vw;">
+                <div class="col-md-2">
+                    <label>Name</label>
+                  </div>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name" value="{{std.name}}" required>
+                  </div>
+                </div>
+                <div class="row" style="padding-top: 1vw;">
+                <div class="col-md-2">
+                    <label>Contact</label>
+                  </div>
+                  <div class="col-sm-10">
+                    <input type="tel" class="form-control" id="contact" name="contact" value="{{std.contact}}" required>
+                  </div>
+                </div>
+                <div class="row" style="padding-top: 1vw;">
+                <div class="col-md-2">
+                    <label>Email</label>
+                  </div>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" value="{{std.email}}" required>
+                  </div>
+                </div>
+                <div class="row" style="padding-top: 1vw;">
+                <div class="col-md-2">
+                    <label>User Name</label>
+                  </div>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="username" name="username" value="{{std.user.username}}" required>
+                  </div>
+                </div>
+                <div class="row" style="padding-top: 1vw;">
+                <div class="col-md-2">
+                    <label>Password</label>
+                  </div>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="password" name="password" value="{{std.user.password}}" required>
+                  </div>
+                </div>
+                <div class="row" style="padding-top: 1vw;">
+                    <div class="col-sm-5">
+                        <input type="submit" class="btn btn-dark form-control" style="margin-left: 10vw;"  value="Register">
+                    </div>
+                  </div>
+                  <div class="row" style="padding-top: 1vw;">
+                    <div class="col-sm-8">
+                      <p id="msg"></p>    
+                                </div>
+                  </div>
+        {% else %}
+        <div class="row" style="padding-top: 1vw;">
+            <div class="col-md-2">
+                <label>Name</label>
+              </div>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name" value="{{std.name}}" disabled>
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1vw;">
+            <div class="col-md-2">
+                <label>Contact</label>
+              </div>
+              <div class="col-sm-10">
+                <input type="tel" class="form-control" id="contact" name="contact" value="{{std.contact}}" disabled>
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1vw;">
+            <div class="col-md-2">
+                <label>Email</label>
+              </div>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email" value="{{std.email}}" disabled>
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1vw;">
+            <div class="col-md-2">
+                <label>User Name</label>
+              </div>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="username" value="{{std.user.username}}" disabled>
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1vw;">
+            <div class="col-md-2">
+                <label>Password</label>
+              </div>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="password" name="password" value="{{std.user.password}}" disabled>
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1vw;">
+                <div class="col-sm-5">
+                    <input type="submit" class="btn btn-dark form-control" style="margin-left: 10vw;"  value="Register" disabled>
+                </div>
+              </div>
+        {% endif %}
+    </div></div></div></div></div></div>
+    </form>
+</div>
+<script>
+    function validate() {
+        var pass=document.getElementById("password").value
+        var name=document.getElementById("name").value
+        var uname=document.getElementById("username").value
+        var regx=/^[6-9]\d{9}$/
+        var contact=document.getElementById("contact").value
+        if (name.length<4){
+          document.getElementById("msg").innerHTML="Name must contain atleast 4 characters"
+          return false
+        }
+        if (uname=="admin"){
+            document.getElementById("msg").innerHTML="Username can't be admin"
+          return false
+        }
+        if (!regx.test(contact)){
+          document.getElementById("msg").innerHTML="Please enter valid number"
+          return false
+        }
+        if (uname.length<4){
+          document.getElementById("msg").innerHTML="Username must contain atleast 4 characters"
+          return false
+        }
+        if(pass.length<8){
+          document.getElementById("msg").innerHTML="Password must contain 8 characters"
+          return false
+        }
+        else if(pass.length>15){
+          document.getElementById("msg").innerHTML="Password must not exceed 15 characters"
+          return false
+        
+        }
+      }
+</script>
+    {% endblock %}
